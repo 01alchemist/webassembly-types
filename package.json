@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "pretest": "tsc -p test/tsconfig.json",
+    "test": "node --expose-wasm test/wasm.js"
+  }
+}
