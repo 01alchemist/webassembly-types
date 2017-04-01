@@ -111,8 +111,8 @@ WebAssembly.instantiate(wasmModule).then((instance: WebAssembly.Instance) => {
 
 async function instantiateFile(filePath: string): Promise<WebAssembly.Instance> {
   console.log("instantiateFile:+ readFile");
-  let instance = await readFileAsync("./test/addTwo.wasm")
-    .then(data => {
+  let promise1: Promise<Uint8Array> = readFileAsync(filePath);
+  let promise2: Promise<WebAssembly.Module> = promise1.then(data => {
       console.log("instantiateFile fileRead:");
       console.log(`data.length=${data.length}`);
       console.log(`data[0]=${data[0].toString(16)}`);
@@ -127,13 +127,13 @@ async function instantiateFile(filePath: string): Promise<WebAssembly.Instance> 
       // Compile
       console.log("instantiateFile compile:");
       return Promise.resolve(WebAssembly.compile(data));
-    })
-    .then(mod => {
+    });
+  let promise3: Promise<WebAssembly.Instance> = promise2.then(mod => {
       console.log("instantiateFile compiled return Module:");
       return Promise.resolve(WebAssembly.instantiate(mod));
     });
   console.log("instantiateFile:-");
-  return instance;
+  return promise3;
 }
 
 // Use instantiateFile

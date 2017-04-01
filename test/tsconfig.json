@@ -1,7 +1,4 @@
 {
-  "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs"
-  },
+  "extends": "../tsconfig.base.json",
   "files": ["wasm"]
 }
