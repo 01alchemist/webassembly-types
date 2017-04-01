@@ -24,16 +24,10 @@ declare namespace WebAssembly {
     /**
      * WebAssembly.Instance
      **/
-    interface Instance {
+    class Instance {
         readonly exports: any;
-        readonly [Symbol.toStringTag]: "Instance";
+        constructor (module: Module, importObject?: any);
     }
-
-    interface InstanceConstructor {
-        readonly prototype: Instance;
-        new(module: Module, importObject?: any): Instance;
-    }
-    const Instance: InstanceConstructor;
 
     /**
      * WebAssembly.Memory
@@ -44,17 +38,11 @@ declare namespace WebAssembly {
         maximum?: number;
     }
 
-    interface Memory {
+    class Memory {
         readonly buffer: ArrayBuffer;
+        constructor (memoryDescriptor: MemoryDescriptor);
         grow(numPages: number): number;
-        readonly [Symbol.toStringTag]: "Memory";
     }
-
-    interface MemoryConstructor {
-        readonly prototype: Memory;
-        new (memoryDescriptor: MemoryDescriptor): Memory;
-    }
-    const Memory: MemoryConstructor;
 
     /**
      * WebAssembly.Table
@@ -65,58 +53,40 @@ declare namespace WebAssembly {
         maximum?: number;
     }
 
-    interface Table {
+    class Table {
         readonly length: number;
+        constructor (tableDescriptor: TableDescriptor);
         get(index: number): Function;
         grow(numElements: number): number;
         set(index: number, value: Function): void;
-        readonly [Symbol.toStringTag]: "Table";
     }
-
-    interface TableConstructor {
-        readonly prototype: Table;
-        new (tableDescriptor: TableDescriptor): Table;
-    }
-    const Table: TableConstructor;
 
     /**
      * Errors
      */
-    interface CompileError extends Error {
+    class CompileError extends Error {
         readonly fileName: string;
         readonly lineNumber: string;
         readonly columnNumber: string;
+        constructor (message?:string, fileName?:string, lineNumber?:number);
         toString(): string;
     }
-    interface CompileErrorConstructor {
-        readonly prototype: CompileError;
-        new (message?:string, fileName?:string, lineNumber?:number):CompileError;
-    }
-    const CompileError: CompileErrorConstructor;
 
-    interface LinkError extends Error {
+    class LinkError extends Error {
         readonly fileName: string;
         readonly lineNumber: string;
         readonly columnNumber: string;
+        constructor (message?:string, fileName?:string, lineNumber?:number);
         toString(): string;
     }
-    interface LinkErrorConstructor {
-        readonly prototype: LinkError;
-        new (message?:string, fileName?:string, lineNumber?:number):LinkError;
-    }
-    const LinkError: LinkErrorConstructor;
 
-    interface RuntimeError extends Error {
+    class RuntimeError extends Error {
         readonly fileName: string;
         readonly lineNumber: string;
         readonly columnNumber: string;
+        constructor (message?:string, fileName?:string, lineNumber?:number);
         toString(): string;
     }
-    interface RuntimeErrorConstructor {
-        readonly prototype: RuntimeError;
-        new (message?:string, fileName?:string, lineNumber?:number):RuntimeError;
-    }
-    const RuntimeError: RuntimeErrorConstructor;
 
     function compile(bufferSource: ArrayBuffer | Uint8Array): Promise<Module>;
 
