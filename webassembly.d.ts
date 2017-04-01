@@ -6,25 +6,20 @@ declare namespace WebAssembly {
     /**
      * WebAssembly.Module
      **/
-    interface Module {
-        readonly [Symbol.toStringTag]: "Module";
-    }
+    class Module {
+        constructor (bufferSource: ArrayBuffer | Uint8Array);
 
-    interface ModuleConstructor {
-        readonly prototype: Module;
-        new(bufferSource: ArrayBuffer | Uint8Array): Module;
-        customSections(module: Module, sectionName: string): ArrayBuffer[];
-        exports(module: Module): {
+        static customSections(module: Module, sectionName: string): ArrayBuffer[];
+        static exports(module: Module): {
             name: string;
             kind: string;
         }[];
-        imports(module: Module): {
+        static imports(module: Module): {
             module: string;
             name: string;
             kind: string;
         }[];
     }
-    const Module: ModuleConstructor;
 
     /**
      * WebAssembly.Instance
