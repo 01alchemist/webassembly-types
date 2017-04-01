@@ -1,13 +1,8 @@
-interface NativeError {
-
-}
-
 /**
  * WebAssembly v1 (MVP) declaration file for TypeScript
- * Author : 01alchemist (https://twitter.com/01alchemist)
+ * Definitions by: 01alchemist (https://twitter.com/01alchemist)
  */
 declare namespace WebAssembly {
-
     /**
      * WebAssembly.Module
      **/
@@ -89,20 +84,54 @@ declare namespace WebAssembly {
     }
     const Table: TableConstructor;
 
+    /**
+     * Errors
+     */
+    interface CompileError extends Error {
+        readonly fileName: string;
+        readonly lineNumber: string;
+        readonly columnNumber: string;
+        toString(): string;
+    }
+    interface CompileErrorConstructor {
+        readonly prototype: CompileError;
+        new (message?:string, fileName?:string, lineNumber?:number):CompileError;
+    }
+    const CompileError: CompileErrorConstructor;
 
-    const CompileError: NativeError;
-    const LinkError: NativeError;
-    const RuntimeError: NativeError;
+    interface LinkError extends Error {
+        readonly fileName: string;
+        readonly lineNumber: string;
+        readonly columnNumber: string;
+        toString(): string;
+    }
+    interface LinkErrorConstructor {
+        readonly prototype: LinkError;
+        new (message?:string, fileName?:string, lineNumber?:number):LinkError;
+    }
+    const LinkError: LinkErrorConstructor;
+
+    interface RuntimeError extends Error {
+        readonly fileName: string;
+        readonly lineNumber: string;
+        readonly columnNumber: string;
+        toString(): string;
+    }
+    interface RuntimeErrorConstructor {
+        readonly prototype: RuntimeError;
+        new (message?:string, fileName?:string, lineNumber?:number):RuntimeError;
+    }
+    const RuntimeError: RuntimeErrorConstructor;
 
     function compile(bufferSource: ArrayBuffer | Uint8Array): Promise<Module>;
 
     interface ResultObject {
-        module:Module;
-        instance:Instance;
+        module: Module;
+        instance: Instance;
     }
 
     function instantiate(bufferSource: ArrayBuffer | Uint8Array, importObject?: any): Promise<ResultObject>;
     function instantiate(module: Module, importObject?: any): Promise<Instance>;
 
-    function validate(bufferSource: ArrayBuffer | Uint8Array):boolean;
+    function validate(bufferSource: ArrayBuffer | Uint8Array): boolean;
 }
