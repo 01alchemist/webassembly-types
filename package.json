@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "pretest": "tsc -p test/tsconfig.json",
+    "test": "../node/node --expose_wasm test/wasm.js"
+  },
+  "devDependencies": {
+    "@types/node": "^7.0.12",
+    "typescript": "^2.2.2"
+  },
+  "dependencies": {
+    "node": "^0.0.0"
+  }
+}
