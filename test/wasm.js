@@ -107,8 +107,8 @@ WebAssembly.instantiate(wasmModule).then((instance) => {
 function instantiateFile(filePath) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log("instantiateFile:+ readFile");
-        let promise1 = readFileAsync(filePath);
-        let promise2 = promise1.then(data => {
+        let instance = readFileAsync(filePath)
+            .then(data => {
             console.log("instantiateFile fileRead:");
             console.log(`data.length=${data.length}`);
             console.log(`data[0]=${data[0].toString(16)}`);
@@ -122,13 +122,13 @@ function instantiateFile(filePath) {
             // Compile
             console.log("instantiateFile compile:");
             return Promise.resolve(WebAssembly.compile(data));
-        });
-        let promise3 = promise2.then(mod => {
+        })
+            .then((mod) => {
             console.log("instantiateFile compiled return Module:");
             return Promise.resolve(WebAssembly.instantiate(mod));
         });
         console.log("instantiateFile:-");
-        return promise3;
+        return instance;
     });
 }
 // Use instantiateFile
