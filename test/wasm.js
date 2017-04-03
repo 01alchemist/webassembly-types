@@ -138,3 +138,4 @@ instantiateFile("./test/addTwo.wasm").then(inst => {
     console.log(`done instantiateFile inst=${inst}`);
     console.log(`exec inst.exports..addTwo1(0,0)=${inst.exports.addTwo1(0, 0)}`);
 });
+//# sourceMappingURL=wasm.js.map
