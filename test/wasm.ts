@@ -110,28 +110,32 @@ WebAssembly.instantiate(wasmModule).then((instance: WebAssembly.Instance) => {
 });
 
 async function instantiateFile(filePath: string): Promise<WebAssembly.Instance> {
-  console.log("instantiateFile:+ readFile");
-  let instance = await readFileAsync("./test/addTwo.wasm")
-    .then(data => {
-      console.log("instantiateFile fileRead:");
-      console.log(`data.length=${data.length}`);
-      console.log(`data[0]=${data[0].toString(16)}`);
-      console.log(`data[1]=${data[1].toString(16)}`);
-      console.log(`data[2]=${data[2].toString(16)}`);
-      console.log(`data[3]=${data[3].toString(16)}`);
-      console.log(`data[4]=${data[4].toString(16)}`);
-      console.log(`data[5]=${data[5].toString(16)}`);
-      console.log(`data[6]=${data[6].toString(16)}`);
-      console.log(`data[7]=${data[7].toString(16)}`);
+  console.log("instantiateFile:+");
 
-      // Compile
-      console.log("instantiateFile compile:");
-      return Promise.resolve(WebAssembly.compile(data));
-    })
-    .then(mod => {
-      console.log("instantiateFile compiled return Module:");
-      return Promise.resolve(WebAssembly.instantiate(mod));
-    });
+  // Read the file
+  console.log("instantiateFile: readFile:");
+  let data = await readFileAsync(filePath);
+  console.log("instantiateFile: file read:");
+  console.log(`data.length=${data.length}`);
+  console.log(`data[0]=${data[0].toString(16)}`);
+  console.log(`data[1]=${data[1].toString(16)}`);
+  console.log(`data[2]=${data[2].toString(16)}`);
+  console.log(`data[3]=${data[3].toString(16)}`);
+  console.log(`data[4]=${data[4].toString(16)}`);
+  console.log(`data[5]=${data[5].toString(16)}`);
+  console.log(`data[6]=${data[6].toString(16)}`);
+  console.log(`data[7]=${data[7].toString(16)}`);
+
+  // Compile
+  console.log("instantiateFile compile:");
+  let mod = await WebAssembly.compile(data);
+  console.log("instantiateFile compiled:");
+
+  // Instantiate:
+  console.log("instantiateFile instantiate:");
+  let instance = await WebAssembly.instantiate(mod);
+  console.log("instantiateFile instantiated:");
+
   console.log("instantiateFile:-");
   return instance;
 }
