@@ -6,7 +6,7 @@ support WebAssembly MVP. Since it's not yet released
 we assume its been downloaded or compiled locally
 and the executable is ../node/node. According to
 [this](https://github.com/nodejs/node/pull/12220#issuecomment-294511442)
-v8.0.0 should be released by end on May 30th 2017.
+v8.0.0 should be released on May 30th, 2017.
 
 I tested by compiling [node](https://github.com/nodejs/node)
 from sources on master branch at sha1
